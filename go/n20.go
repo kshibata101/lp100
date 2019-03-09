@@ -6,29 +6,35 @@ import (
     "encoding/json"
     "strings"
     "fmt"
+    "io"
 )
 
 type Wiki struct {
-    Text string
-    Title string
+    Text string `json:"text"`
+    Title string `json:"title"`
 }
 
 func main() {
     filepath := "../jawiki-country.json"
     f, _ := os.Open(filepath)
-    defer f.Close()
 
-    var wikis []Wiki
-    s := bufio.NewScanner(f)
-    for s.Scan() {
+    r := bufio.NewReaderSize(f, 1000000)
+    for {
+        line, _, err := r.ReadLine()
+        if err == io.EOF {
+            break
+        } else if err != nil {
+            continue
+        }
+        
         var wiki Wiki
-        in := s.Bytes()
-        json.Unmarshal(in, &wiki);
+        err = json.Unmarshal(line, &wiki);
+        if err != nil {
+            continue
+        }
 
         if strings.Contains(wiki.Text, "イギリス") {
-            fmt.Println(string(in))
-            wikis = append(wikis, wiki)
+            fmt.Println(string(line))
         }
     }
-
 }
