@@ -42,6 +42,8 @@ func main() {
 
     rst := regexp.MustCompile(`'{2,}`)
     rmrk := regexp.MustCompile(`\[\[(([^\[]*)\|)?([^\[]*?)\]\]`)
+    rref := regexp.MustCompile(`<ref(.*?)</ref>`)
+    rref2 := regexp.MustCompile(`<ref(.*?)/>`)
     rhttp := regexp.MustCompile(`\[(.*?)\]`)
     rtpl := regexp.MustCompile(`\{\{([^\}]*\|)?([^\}]*?)\}\}`)
     rstar := regexp.MustCompile(`\*`)
@@ -52,6 +54,8 @@ func main() {
         if (len(res) == 2) {
             word := rst.ReplaceAllString(res[1], "")
             word = rmrk.ReplaceAllString(word, "$3")
+            word = rref.ReplaceAllString(word, "")
+            word = rref2.ReplaceAllString(word, "")
             word = rhttp.ReplaceAllString(word, "$1")
             word = rtpl.ReplaceAllString(word, "$2")
             word = rstar.ReplaceAllString(word, "")
@@ -59,5 +63,7 @@ func main() {
         }
     }
 
-    fmt.Println(m)
+    for k, v := range m {
+        fmt.Println(k + "\t" + v)
+    }
 }
