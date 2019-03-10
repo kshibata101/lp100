@@ -41,13 +41,13 @@ func main() {
     }
 
     rst := regexp.MustCompile(`'{2,}`)
-    rmrk := regexp.MustCompile(`\[\[(.*\|)?(.*)\]\]`)
+    rmrk := regexp.MustCompile(`\[\[(([^\[]*)\|)?([^\[]*?)\]\]`)
     m := make(map[string]string)
     for _, text := range texts {
         res := strings.Split(text, " = ")
         if (len(res) == 2) {
             word := rst.ReplaceAllString(res[1], "")
-            word = rmrk.ReplaceAllString(word, "$2")
+            word = rmrk.ReplaceAllString(word, "$3")
             m[res[0]] = word
         }
     }
