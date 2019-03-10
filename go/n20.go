@@ -34,7 +34,7 @@ func main() {
         }
 
         if strings.Contains(wiki.Title, "イギリス") {
-            fmt.Println(string(line))
+            fmt.Println(wiki.Text)
         }
     }
 }
