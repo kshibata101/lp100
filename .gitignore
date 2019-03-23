@@ -6,3 +6,5 @@ jawiki-country.json
 !jawiki-country.json.gz
 jawiki-uk.txt
 *.txt.mecab
+
+*.png
