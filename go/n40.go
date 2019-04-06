@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-    sentenses := cabocha.Load("../neko.txt.cabocha")
+    sentenses := cabocha.LoadAsMorph("../neko.txt.cabocha")
     for _, morph := range sentenses[2] {
         fmt.Println(morph)
     }
