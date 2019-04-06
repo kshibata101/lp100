@@ -128,3 +128,12 @@ func GetChunkSurfaceWithoutSymbol(chunk Chunk) string {
     }
     return text
 }
+
+func HasPos(chunk Chunk, pos string) bool {
+    for _, morph := range chunk.Morphs {
+        if morph.Pos == pos {
+            return true
+        }
+    }
+    return false
+}
