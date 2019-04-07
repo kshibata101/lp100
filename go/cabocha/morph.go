@@ -137,3 +137,27 @@ func HasPos(chunk Chunk, pos string) bool {
     }
     return false
 }
+
+func OutputDotFile(sentence Sentense, filepath string) {
+    f, err := os.Create(filepath)
+    if err != nil {
+        panic(err)
+    }
+    defer f.Close()
+
+    w := bufio.NewWriter(f)
+    w.WriteString("digraph graphname {\n")
+
+    for _, chunk := range sentence {
+        if chunk.Dst >= 0 {
+            w.WriteString("    ")
+            w.WriteString(GetChunkSurfaceWithoutSymbol(chunk))
+            w.WriteString(" -> ")
+            w.WriteString(GetChunkSurfaceWithoutSymbol(sentence[chunk.Dst]))
+            w.WriteString(";\n")
+        }
+    }
+
+    w.WriteString("}\n")
+    w.Flush()
+}
