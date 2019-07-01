@@ -119,6 +119,14 @@ func GetChunkSurface(chunk Chunk) string {
     return text
 }
 
+func (c Chunk) GetChunkSurface() string {
+    text := ""
+    for _, morph := range c.Morphs {
+        text += morph.Surface
+    }
+    return text
+}
+
 func GetChunkSurfaceWithoutSymbol(chunk Chunk) string {
     text := ""
     for _, morph := range chunk.Morphs {

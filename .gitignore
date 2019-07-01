@@ -11,3 +11,7 @@ jawiki-uk.txt
 *.png
 *.dot
 go/*.txt
+
+# text
+*.in
+*.out
